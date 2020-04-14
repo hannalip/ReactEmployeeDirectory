@@ -37,3 +37,12 @@
     transform: rotate(360deg);
   }
 }
+
+.btn {
+  background-color: rgba(224, 16, 16, 0.87);
+}
+
+.searchbar {
+  justify-content: center;
+
+}

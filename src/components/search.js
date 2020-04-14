@@ -21,13 +21,17 @@ class Search extends Component {
     this.setState({ search: event.target.value });
   };
 
+
+
   handleSort = () => {
     if (this.state.sort === "descending" || this.state.sort !== "ascending") {
       this.setState({ sort: "ascending" });
+      
     } else if (this.state.sort === "ascending" || this.state.sort !== "descending") {
       this.setState({ sort: "descending" });
     }
   };
+
 
   render() {
     let filteredNames = this.state.results.filter((employee) => {
@@ -38,25 +42,25 @@ class Search extends Component {
       );
     });
 
-    const ascending = (a, b) => {
-      const employeeOne = a.name.last.toUpperCase();
-      const employeeTwo = b.name.last.toUpperCase();
+    const ascending = (begining, end) => {
+      const employeeFirst = begining.name.last.toUpperCase();
+      const employeeLast = end.name.last.toUpperCase();
       let compare = 0;
-      if (employeeOne > employeeTwo) {
+      if (employeeFirst > employeeLast) {
         compare = 1;
-      } else if (employeeOne < employeeTwo) {
+      } else if (employeeFirst < employeeLast) {
         compare = -1;
       }
       return compare * 1;
     };
 
-    const descending = (a, b) => {
-      const employeeOne = a.name.last.toUpperCase();
-      const employeeTwo = b.name.last.toUpperCase();
+    const descending = (begining, end) => {
+      const employeeFirst = begining.name.last.toUpperCase();
+      const employeeLast = end.name.last.toUpperCase();
       let compare = 0;
-      if (employeeOne > employeeTwo) {
+      if (employeeFirst > employeeLast) {
         compare = 1;
-      } else if (employeeOne < employeeTwo) {
+      } else if (employeeFirst < employeeLast) {
         compare = -1;
       }
       return compare * -1;
@@ -70,7 +74,7 @@ class Search extends Component {
 
     return (
       <>
-        <form className="form-inline search-bar">
+        <form className="form-inline searchbar">
           <input
             className="form-control mr-sm-2"
             type="search"
@@ -86,7 +90,7 @@ class Search extends Component {
             <div className="col-md-1 headings">Frist Name</div>
             <div className="col-md-2 headings">Last Name
               <button className="btn" onClick={this.handleSort}>
-                <i className="fas fa-sort"></i>
+    
               </button>
             </div>
             <div className="col-md-2 headings">Phone Number</div>
