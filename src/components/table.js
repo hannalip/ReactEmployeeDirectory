@@ -1,10 +1,10 @@
 import React from "react";
 
-function Card({ filteredList }) {
+function Table({ filteredNames }) {
   return (
     <>
-      {filteredList.map((employee) => (
-        <div className="row emp-card" key={filteredList.indexOf(employee)}>
+      {filteredNames.map((employee) => (
+        <div className="row emp-card" key={filteredNames.indexOf(employee)}>
           <div className="col-md-1">
             <img src={employee.picture.medium} alt="Emp Img" />
           </div>
@@ -20,4 +20,4 @@ function Card({ filteredList }) {
   );
 }
 
-export default Card;
+export default Table;

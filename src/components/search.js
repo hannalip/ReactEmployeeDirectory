@@ -6,33 +6,31 @@ class Search extends Component {
   state = {
     search: "",
     sort: "",
-    employees: [],
+    results: [],
   };
 
   componentDidMount() {
-    this.employeeInfo();
+    API.getUsers()
+    .then((res) => this.setState({ results: res.data.results }))
+    .catch((err) => console.log(err));
   }
 
-  employeeInfo = () => {
-    API.getUsers()
-      .then((res) => this.setState({ employees: res.data.results }))
-      .catch((err) => console.log(err));
-  };
-
-  updateList = (e) => {
-    this.setState({ search: e.target.value });
+ 
+  handleInputChange = (event) => {
+    event.preventDefault();
+    this.setState({ search: event.target.value });
   };
 
   handleSort = () => {
-    if (this.state.sort === "desc" || this.state.sort !== "asc") {
-      this.setState({ sort: "asc" });
-    } else if (this.state.sort === "asc" || this.state.sort !== "desc") {
-      this.setState({ sort: "desc" });
+    if (this.state.sort === "descending" || this.state.sort !== "ascending") {
+      this.setState({ sort: "ascending" });
+    } else if (this.state.sort === "ascending" || this.state.sort !== "descending") {
+      this.setState({ sort: "descending" });
     }
   };
 
   render() {
-    let filteredList = this.state.employees.filter((employee) => {
+    let filteredNames = this.state.results.filter((employee) => {
       return (
         employee.name.first
           .toLowerCase()
@@ -40,34 +38,34 @@ class Search extends Component {
       );
     });
 
-    const ascend = (a, b) => {
-      const empA = a.name.last.toUpperCase();
-      const empB = b.name.last.toUpperCase();
+    const ascending = (a, b) => {
+      const employeeOne = a.name.last.toUpperCase();
+      const employeeTwo = b.name.last.toUpperCase();
       let compare = 0;
-      if (empA > empB) {
+      if (employeeOne > employeeTwo) {
         compare = 1;
-      } else if (empA < empB) {
+      } else if (employeeOne < employeeTwo) {
         compare = -1;
       }
       return compare * 1;
     };
 
-    const descend = (a, b) => {
-      const empA = a.name.last.toUpperCase();
-      const empB = b.name.last.toUpperCase();
+    const descending = (a, b) => {
+      const employeeOne = a.name.last.toUpperCase();
+      const employeeTwo = b.name.last.toUpperCase();
       let compare = 0;
-      if (empA > empB) {
+      if (employeeOne > employeeTwo) {
         compare = 1;
-      } else if (empA < empB) {
+      } else if (employeeOne < employeeTwo) {
         compare = -1;
       }
       return compare * -1;
     };
 
-    if (this.state.sort === "asc") {
-      filteredList.sort(ascend);
-    } else if (this.state.sort === "desc") {
-      filteredList.sort(descend);
+    if (this.state.sort === "ascending") {
+      filteredNames.sort(ascending);
+    } else if (this.state.sort === "descending") {
+      filteredNames.sort(descending);
     }
 
     return (
@@ -76,10 +74,10 @@ class Search extends Component {
           <input
             className="form-control mr-sm-2"
             type="search"
-            placeholder="Search by First Name"
+            placeholder="First Name"
             value={this.state.search}
             name="search"
-            onChange={this.updateList.bind(this)}
+            onChange={this.handleInputChange.bind(this)}
           />
         </form>
         <div className="table-content">
@@ -97,7 +95,7 @@ class Search extends Component {
             <div className="col-md-2 headings">Birthday</div>
           </div>
           <div>
-            <Table filteredList={filteredList} />
+            <Table filteredNames={filteredNames} />
           </div>
         </div>
       </>
