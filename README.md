@@ -22,6 +22,8 @@ The user is able to:
 
 ## Demo Appilication
 
+![Employee Directory](./screenshot.png)
+
 * Navigate to [localhost:3000](localhost:3000)
 
-* [Budget Tracker] (https://thawing-river-86291.herokuapp.com/)
+* [Budget Tracker] (https://stormy-spire-81782.herokuapp.com/)
